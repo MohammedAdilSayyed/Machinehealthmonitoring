@@ -1,0 +1,17 @@
+.container {
+    display: flex;
+}
+
+.mainWrapper {
+    margin-left: 118px;
+    flex: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main {
+    flex: 1;
+    padding: 2rem;
+    background: #F5F7FA;
+}

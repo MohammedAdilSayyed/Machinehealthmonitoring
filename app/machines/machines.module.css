@@ -1,0 +1,12 @@
+.container {
+    padding: var(--spacing-xl);
+}
+
+.container h1 {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--spacing-md);
+}
+
+.container p {
+    color: var(--text-secondary);
+}
