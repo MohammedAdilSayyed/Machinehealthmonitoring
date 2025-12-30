@@ -11,13 +11,23 @@
   --primary-blue: #4A90E2;
   --primary-blue-dark: #3672BD;
   --primary-blue-light: #6BA3E8;
-  
-  /* Status Colors */
-  --status-success: #4CAF50;
-  --status-warning: #FFC107;
-  --status-danger: #F44336;
+
+  /* Status Colors - Explicit Green/Yellow/Red */
+  --status-success: #10B981;
+  --status-normal: #10B981;
+  --status-green: #10B981;
+  --status-warning: #F59E0B;
+  --status-yellow: #F59E0B;
+  --status-danger: #EF4444;
+  --status-fault: #EF4444;
+  --status-red: #EF4444;
   --status-info: #2196F3;
-  
+
+  /* Legacy Status Colors (for backward compatibility) */
+  --legacy-status-success: #4CAF50;
+  --legacy-status-warning: #FFC107;
+  --legacy-status-danger: #F44336;
+
   /* Neutral Colors */
   --bg-primary: #F5F7FA;
   --bg-secondary: #FFFFFF;
@@ -26,13 +36,13 @@
   --text-secondary: #6B7280;
   --text-light: #9CA3AF;
   --border-color: #E5E7EB;
-  
+
   /* Shadows */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
   --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-  
+
   /* Spacing */
   --spacing-xs: 0.25rem;
   --spacing-sm: 0.5rem;
@@ -40,14 +50,14 @@
   --spacing-lg: 1.5rem;
   --spacing-xl: 2rem;
   --spacing-2xl: 3rem;
-  
+
   /* Border Radius */
   --radius-sm: 0.375rem;
   --radius-md: 0.5rem;
   --radius-lg: 0.75rem;
   --radius-xl: 1rem;
   --radius-full: 9999px;
-  
+
   /* Typography */
   --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-size-xs: 0.75rem;
@@ -68,15 +78,31 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: 600;
   line-height: 1.2;
 }
 
-h1 { font-size: var(--font-size-3xl); }
-h2 { font-size: var(--font-size-2xl); }
-h3 { font-size: var(--font-size-xl); }
-h4 { font-size: var(--font-size-lg); }
+h1 {
+  font-size: var(--font-size-3xl);
+}
+
+h2 {
+  font-size: var(--font-size-2xl);
+}
+
+h3 {
+  font-size: var(--font-size-xl);
+}
+
+h4 {
+  font-size: var(--font-size-lg);
+}
 
 button {
   font-family: var(--font-family);
@@ -122,24 +148,65 @@ a {
   justify-content: space-between;
 }
 
-.gap-1 { gap: var(--spacing-xs); }
-.gap-2 { gap: var(--spacing-sm); }
-.gap-3 { gap: var(--spacing-md); }
-.gap-4 { gap: var(--spacing-lg); }
+.gap-1 {
+  gap: var(--spacing-xs);
+}
 
-.text-xs { font-size: var(--font-size-xs); }
-.text-sm { font-size: var(--font-size-sm); }
-.text-base { font-size: var(--font-size-base); }
-.text-lg { font-size: var(--font-size-lg); }
-.text-xl { font-size: var(--font-size-xl); }
-.text-2xl { font-size: var(--font-size-2xl); }
+.gap-2 {
+  gap: var(--spacing-sm);
+}
 
-.font-medium { font-weight: 500; }
-.font-semibold { font-weight: 600; }
-.font-bold { font-weight: 700; }
+.gap-3 {
+  gap: var(--spacing-md);
+}
 
-.text-secondary { color: var(--text-secondary); }
-.text-light { color: var(--text-light); }
+.gap-4 {
+  gap: var(--spacing-lg);
+}
+
+.text-xs {
+  font-size: var(--font-size-xs);
+}
+
+.text-sm {
+  font-size: var(--font-size-sm);
+}
+
+.text-base {
+  font-size: var(--font-size-base);
+}
+
+.text-lg {
+  font-size: var(--font-size-lg);
+}
+
+.text-xl {
+  font-size: var(--font-size-xl);
+}
+
+.text-2xl {
+  font-size: var(--font-size-2xl);
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+.text-light {
+  color: var(--text-light);
+}
 
 /* Animations */
 @keyframes fadeIn {
@@ -147,6 +214,7 @@ a {
     opacity: 0;
     transform: translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -158,9 +226,12 @@ a {
 }
 
 @keyframes pulse {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 1;
   }
+
   50% {
     opacity: 0.7;
   }

@@ -1,32 +1,105 @@
 .container {
-  max-width: 1600px;
+  padding: var(--spacing-xl);
+  max-width: 1400px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-xl);
+  gap: var(--spacing-2xl);
 }
 
-.statsGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+.selectorSection {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
   gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
+  flex-wrap: wrap;
 }
 
-.section {
-  animation: fadeIn 0.5s ease-out;
+.liveIndicator {
+  display: flex;
+  align-items: center;
 }
 
-.sectionTitle {
-  font-size: var(--font-size-xl);
+.liveBadge,
+.loadingBadge,
+.errorBadge {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
   font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: var(--spacing-lg);
 }
 
-.machineGrid {
+.liveBadge {
+  background-color: rgba(16, 185, 129, 0.1);
+  color: #10B981;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.loadingBadge {
+  background-color: rgba(74, 144, 226, 0.1);
+  color: var(--primary-blue);
+  border: 1px solid rgba(74, 144, 226, 0.3);
+}
+
+.errorBadge {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #EF4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.liveDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #10B981;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.sensorGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: var(--spacing-lg);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--spacing-xl);
+  animation: fadeIn 0.4s ease-out;
+}
+
+@media (min-width: 768px) {
+  .sensorGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.chartSection {
+  animation: fadeIn 0.5s ease-out 0.1s both;
 }
 
 @keyframes fadeIn {
@@ -38,16 +111,5 @@
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .statsGrid {
-    grid-template-columns: 1fr;
-  }
-
-  .machineGrid {
-    grid-template-columns: 1fr;
   }
 }

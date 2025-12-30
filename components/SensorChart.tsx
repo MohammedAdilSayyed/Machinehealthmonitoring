@@ -28,15 +28,19 @@ ChartJS.register(
 
 interface SensorChartProps {
     data: SensorData[];
+    machineId: number;
 }
 
-export default function SensorChart({ data }: SensorChartProps) {
+export default function SensorChart({ data, machineId }: SensorChartProps) {
+    // Filter data for selected machine
+    const machineData = data.filter(d => d.machineId === machineId);
+
     const chartData = {
-        labels: data.map(d => d.time),
+        labels: machineData.map(d => d.time),
         datasets: [
             {
                 label: 'Temperature (°C)',
-                data: data.map(d => d.temperature),
+                data: machineData.map(d => d.temperature),
                 borderColor: '#F44336',
                 backgroundColor: 'rgba(244, 67, 54, 0.1)',
                 tension: 0.4,
@@ -46,7 +50,7 @@ export default function SensorChart({ data }: SensorChartProps) {
             },
             {
                 label: 'Vibration (mm/s)',
-                data: data.map(d => d.vibration),
+                data: machineData.map(d => d.vibration),
                 borderColor: '#2196F3',
                 backgroundColor: 'rgba(33, 150, 243, 0.1)',
                 tension: 0.4,
@@ -56,7 +60,7 @@ export default function SensorChart({ data }: SensorChartProps) {
             },
             {
                 label: 'Voltage (V)',
-                data: data.map(d => d.voltage),
+                data: machineData.map(d => d.voltage),
                 borderColor: '#FFC107',
                 backgroundColor: 'rgba(255, 193, 7, 0.1)',
                 tension: 0.4,

@@ -1,12 +1,21 @@
+export interface SensorReading {
+  label: string;
+  value: number;
+  unit: string;
+  status: 'normal' | 'warning' | 'fault';
+  min: number;
+  max: number;
+}
+
 export interface Machine {
   id: number;
   name: string;
   health: number;
   status: 'running' | 'warning' | 'fault';
-  metrics: {
-    label: string;
-    value: string;
-  }[];
+  voltage: SensorReading;
+  temperature: SensorReading;
+  vibration: SensorReading;
+  current: SensorReading;
 }
 
 export interface Alert {
@@ -21,6 +30,8 @@ export interface SensorData {
   temperature: number;
   vibration: number;
   voltage: number;
+  current: number;
+  machineId: number;
 }
 
 export interface StatsCardProps {
