@@ -1,10 +1,10 @@
 'use client';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { fetchLatestTelemetry, fetchSensorHistory, LatestTelemetry } from '@/services/thingsboard';
-import { THINGSBOARD_CONFIG } from '@/config/thingsboard.config';
+import { fetchLatestTelemetry, fetchSensorHistory, LatestTelemetry } from '@/services/thingspeak';
+import { THINGSPEAK_CONFIG } from '@/config/thingspeak.config';
 
-interface UseThingsBoardReturn {
+interface UseThingSpeakReturn {
     data: LatestTelemetry | null;
     history: any[];
     loading: boolean;
@@ -13,16 +13,15 @@ interface UseThingsBoardReturn {
 }
 
 /**
- * Optimized React hook for real-time ThingsBoard data and history polling
+ * Optimized React hook for real-time ThingSpeak data polling
  */
-export function useThingsBoard(): UseThingsBoardReturn {
+export function useThingSpeak(): UseThingSpeakReturn {
     const [data, setData] = useState<LatestTelemetry | null>(null);
     const [history, setHistory] = useState<any[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<Error | null>(null);
-    const refreshInterval = THINGSBOARD_CONFIG.refreshInterval || 5000;
+    const refreshInterval = THINGSPEAK_CONFIG.refreshInterval || 15000;
 
-    // Ref to prevent race conditions during polling
     const isFetching = useRef(false);
 
     const fetchData = useCallback(async () => {
@@ -39,14 +38,13 @@ export function useThingsBoard(): UseThingsBoardReturn {
             setError(null);
         } catch (err: any) {
             setError(err instanceof Error ? err : new Error(String(err)));
-            console.error('[useThingsBoard] Polling Error:', err);
+            console.error('[useThingSpeak] Polling Error:', err);
         } finally {
             setLoading(false);
             isFetching.current = false;
         }
     }, []);
 
-    // Initial load and interval
     useEffect(() => {
         fetchData();
 

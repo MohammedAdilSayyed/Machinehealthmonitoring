@@ -1,5 +1,5 @@
 import { SensorReading } from '@/types/types';
-import { THINGSBOARD_CONFIG } from '@/config/thingsboard.config';
+import { THINGSPEAK_CONFIG } from '@/config/thingspeak.config';
 
 type SensorType = 'temperature' | 'voltage' | 'vibration';
 
@@ -10,7 +10,7 @@ export function determineSensorStatus(
     value: number,
     sensorType: SensorType
 ): 'normal' | 'warning' | 'fault' {
-    const thresholds = THINGSBOARD_CONFIG.thresholds[sensorType];
+    const thresholds = THINGSPEAK_CONFIG.thresholds[sensorType];
 
     if (!thresholds) {
         return 'normal';

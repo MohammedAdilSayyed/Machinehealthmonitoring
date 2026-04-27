@@ -5,7 +5,7 @@ import MachineSelector from '@/components/MachineSelector';
 import SensorCard from '@/components/SensorCard';
 import SensorChart from '@/components/SensorChart';
 import { machines, sensorData } from '@/data/mockData';
-import { useThingsBoard } from '@/hooks/useThingsBoard';
+import { useThingSpeak } from '@/hooks/useThingSpeak';
 import { createSensorReading } from '@/utils/sensorStatus';
 import { Machine } from '@/types/types';
 import { AlertCircle, Loader2 } from 'lucide-react';
@@ -13,16 +13,16 @@ import styles from './page.module.css';
 
 export default function Home() {
   const [selectedMachine, setSelectedMachine] = useState(machines[0]);
-  const { data: thingsBoardData, history: thingsBoardHistory, loading, error } = useThingsBoard();
+  const { data: thingSpeakData, history: thingSpeakHistory, loading, error } = useThingSpeak();
 
-  // Create Machine 1 with live ThingsBoard data
+  // Create Machine 1 with live ThingSpeak data
   const machine1WithLiveData: Machine = useMemo(() => {
-    if (thingsBoardData && selectedMachine.id === 1) {
+    if (thingSpeakData && selectedMachine.id === 1) {
       return {
         ...machines[0],
         voltage: createSensorReading(
           'Voltage',
-          thingsBoardData.voltage ?? machines[0].voltage.value,
+          thingSpeakData.voltage ?? machines[0].voltage.value,
           'V',
           'voltage',
           0,
@@ -30,7 +30,7 @@ export default function Home() {
         ),
         temperature: createSensorReading(
           'Temperature',
-          thingsBoardData.temperature ?? machines[0].temperature.value,
+          thingSpeakData.temperature ?? machines[0].temperature.value,
           '°C',
           'temperature',
           0,
@@ -38,7 +38,7 @@ export default function Home() {
         ),
         vibration: createSensorReading(
           'Vibration',
-          thingsBoardData.vibration ?? machines[0].vibration.value,
+          thingSpeakData.vibration ?? machines[0].vibration.value,
           'mm/s',
           'vibration',
           0,
@@ -47,14 +47,14 @@ export default function Home() {
       };
     }
     return selectedMachine;
-  }, [thingsBoardData, selectedMachine]);
+  }, [thingSpeakData, selectedMachine]);
 
   // Use live data for Machine 1, mock data for others
   const displayMachine = selectedMachine.id === 1 ? machine1WithLiveData : selectedMachine;
 
   // Use live history for Machine 1 if available
-  const displayHistory = (selectedMachine.id === 1 && thingsBoardHistory.length > 0)
-    ? thingsBoardHistory
+  const displayHistory = (selectedMachine.id === 1 && thingSpeakHistory.length > 0)
+    ? thingSpeakHistory
     : sensorData;
 
   return (
